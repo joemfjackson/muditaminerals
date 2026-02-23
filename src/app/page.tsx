@@ -49,7 +49,7 @@ export default async function HomePage() {
                 alt="Mudita Minerals"
                 width={320}
                 height={320}
-                className="mx-auto mb-5 w-48 sm:w-64 md:w-80 lg:w-96"
+                className="mx-auto mb-5 w-72 sm:w-80 md:w-96 lg:w-[28rem]"
                 priority
               />
             </div>
