@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Mail, MapPin, Pickaxe } from "lucide-react";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -22,7 +25,8 @@ export function Footer() {
 
   return (
     <footer className="border-t-2 border-gold/30 bg-charcoal">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:py-16 sm:px-6 lg:px-8">
+        <ScrollReveal>
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4 sm:col-span-2 lg:col-span-1">
@@ -107,6 +111,7 @@ export function Footer() {
             &copy; {currentYear} Mudita Minerals. All rights reserved.
           </p>
         </div>
+        </ScrollReveal>
       </div>
     </footer>
   );

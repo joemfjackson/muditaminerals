@@ -69,7 +69,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
 }
 
 export async function getCategories(): Promise<Category[]> {
-  if (!isSupabaseConfigured) return mockCategories;
+  if (!isSupabaseConfigured()) return mockCategories;
 
   const { data, error } = await db()
     .from("categories")

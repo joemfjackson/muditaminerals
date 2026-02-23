@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ShoppingBag, Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/hooks/use-cart";
 import { cn } from "@/lib/utils";
 
@@ -69,8 +70,8 @@ export function Header() {
         visible ? "translate-y-0" : "-translate-y-full"
       )}
     >
-      {/* ===== Solid top bar ===== */}
-      <div className="bg-charcoal border-b-2 border-gold/30">
+      {/* ===== Top bar with backdrop blur ===== */}
+      <div className="bg-charcoal/90 backdrop-blur-md border-b-2 border-gold/30">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* ---- Logo ---- */}
           <Link
@@ -123,12 +124,15 @@ export function Header() {
             {/* Cart button */}
             <button
               onClick={toggleCart}
-              className="relative p-2 text-bone/70 transition-colors duration-200 hover:text-gold"
+              className="relative p-2.5 text-bone/70 transition-colors duration-200 hover:text-gold"
               aria-label={`Shopping cart with ${itemCount} items`}
             >
               <ShoppingBag className="h-5 w-5" />
               {itemCount > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-sm bg-amethyst text-[10px] font-bold text-white">
+                <span
+                  key={itemCount}
+                  className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-sm bg-amethyst text-[10px] font-bold text-white animate-badge-pop"
+                >
                   {itemCount > 99 ? "99+" : itemCount}
                 </span>
               )}
@@ -137,7 +141,7 @@ export function Header() {
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen((prev) => !prev)}
-              className="p-2 text-bone/70 transition-colors duration-200 hover:text-gold md:hidden"
+              className="p-2.5 text-bone/70 transition-colors duration-200 hover:text-gold md:hidden"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
             >
@@ -151,45 +155,46 @@ export function Header() {
         </div>
       </div>
 
-      {/* ===== Mobile dropdown (solid panel) ===== */}
-      <div
-        className={cn(
-          "bg-charcoal border-t border-stone/50",
-          "overflow-hidden md:hidden",
-          "transition-all duration-200 ease-out",
-          mobileOpen
-            ? "max-h-64 opacity-100"
-            : "max-h-0 opacity-0 pointer-events-none"
-        )}
-      >
-        <nav className="flex flex-col px-4 py-3" aria-label="Mobile">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="px-4 py-3 text-sm font-medium uppercase tracking-wider text-bone/70 transition-colors duration-200 hover:text-gold"
-            >
-              {link.label}
-            </Link>
-          ))}
-
-          {/* Mobile CTA */}
-          <Link
-            href="/shop"
-            onClick={() => setMobileOpen(false)}
-            className={cn(
-              "mt-2 flex items-center justify-center",
-              "rounded-sm px-4 py-3",
-              "bg-gold text-black",
-              "font-heading font-bold uppercase tracking-wider text-sm",
-              "transition-colors duration-200 hover:bg-gold-light"
-            )}
+      {/* ===== Mobile dropdown ===== */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="bg-charcoal/95 backdrop-blur-md border-t border-stone/50 overflow-hidden md:hidden"
           >
-            Shop Now
-          </Link>
-        </nav>
-      </div>
+            <nav className="flex flex-col px-4 py-3" aria-label="Mobile">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="px-4 py-3 text-sm font-medium uppercase tracking-wider text-bone/70 transition-colors duration-200 hover:text-gold"
+                >
+                  {link.label}
+                </Link>
+              ))}
+
+              {/* Mobile CTA */}
+              <Link
+                href="/shop"
+                onClick={() => setMobileOpen(false)}
+                className={cn(
+                  "mt-2 flex items-center justify-center",
+                  "rounded-sm px-4 py-3",
+                  "bg-gold text-black",
+                  "font-heading font-bold uppercase tracking-wider text-sm",
+                  "transition-colors duration-200 hover:bg-gold-light"
+                )}
+              >
+                Shop Now
+              </Link>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

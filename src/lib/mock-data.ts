@@ -7,6 +7,13 @@ export const mockCategories: Category[] = [
   { id: "cat-4", name: "Specimens", slug: "specimens", description: "Museum-quality mineral specimens", created_at: "2024-01-01" },
 ];
 
+export const categoryImages: Record<string, string> = {
+  crystals: "https://images.unsplash.com/photo-1759719441142-6db4045f39e6?w=800&q=80",
+  gemstones: "https://images.unsplash.com/photo-1766038844075-d997429c85ef?w=800&q=80",
+  jewelry: "https://images.unsplash.com/photo-1581344947734-faed9fc80bf9?w=800&q=80",
+  specimens: "https://images.unsplash.com/photo-1760651691818-e13e65286d72?w=800&q=80",
+};
+
 export const mockProducts: Product[] = [
   {
     id: "prod-1",
@@ -17,7 +24,11 @@ export const mockProducts: Product[] = [
     compare_at_price: 249.99,
     category_id: "cat-1",
     category_slug: "crystals",
-    images: ["/placeholder-crystal-1.jpg"],
+    images: [
+      "https://images.unsplash.com/photo-1572837067415-bc24c4bd8bd2?w=800&q=80",
+      "https://images.unsplash.com/photo-1758275872445-d07581768ab6?w=800&q=80",
+      "https://images.unsplash.com/photo-1758275872449-52d28d85a2ca?w=800&q=80",
+    ],
     stock: 3,
     featured: true,
     active: true,
@@ -33,7 +44,11 @@ export const mockProducts: Product[] = [
     price: 64.99,
     category_id: "cat-1",
     category_slug: "crystals",
-    images: ["/placeholder-crystal-2.jpg"],
+    images: [
+      "https://images.unsplash.com/photo-1753734051188-b58b9ba4cdc1?w=800&q=80",
+      "https://images.unsplash.com/photo-1728234553997-f71b87a44e13?w=800&q=80",
+      "https://images.unsplash.com/photo-1771580927643-36aaa2709141?w=800&q=80",
+    ],
     stock: 8,
     featured: true,
     active: true,
@@ -49,7 +64,11 @@ export const mockProducts: Product[] = [
     price: 42.99,
     category_id: "cat-1",
     category_slug: "crystals",
-    images: ["/placeholder-crystal-3.jpg"],
+    images: [
+      "https://images.unsplash.com/photo-1614092872241-c9a193f2b4aa?w=800&q=80",
+      "https://images.unsplash.com/photo-1727124442524-9fdb492fd819?w=800&q=80",
+      "https://images.unsplash.com/photo-1653032948648-d7b0989123e0?w=800&q=80",
+    ],
     stock: 12,
     featured: false,
     active: true,
@@ -65,7 +84,11 @@ export const mockProducts: Product[] = [
     price: 79.99,
     category_id: "cat-2",
     category_slug: "gemstones",
-    images: ["/placeholder-gem-1.jpg"],
+    images: [
+      "https://images.unsplash.com/photo-1534883031555-7d18c6cf52e7?w=800&q=80",
+      "https://images.unsplash.com/photo-1584828202032-a0f7ecdf6ce5?w=800&q=80",
+      "https://images.unsplash.com/photo-1659468550840-602345a513d9?w=800&q=80",
+    ],
     stock: 5,
     featured: true,
     active: true,
@@ -81,7 +104,11 @@ export const mockProducts: Product[] = [
     price: 34.99,
     category_id: "cat-1",
     category_slug: "crystals",
-    images: ["/placeholder-crystal-4.jpg"],
+    images: [
+      "https://images.unsplash.com/photo-1611480191880-3730b46f8ded?w=800&q=80",
+      "https://images.unsplash.com/photo-1611331411061-4c7456ab867f?w=800&q=80",
+      "https://images.unsplash.com/photo-1611480191884-b3c11df43d71?w=800&q=80",
+    ],
     stock: 15,
     featured: false,
     active: true,
@@ -97,7 +124,11 @@ export const mockProducts: Product[] = [
     price: 54.99,
     category_id: "cat-3",
     category_slug: "jewelry",
-    images: ["/placeholder-jewelry-1.jpg"],
+    images: [
+      "https://images.unsplash.com/photo-1741276874269-52806474faec?w=800&q=80",
+      "https://images.unsplash.com/photo-1741276874453-9a2c45a79cbd?w=800&q=80",
+      "https://images.unsplash.com/photo-1742378543112-b89cb56e312d?w=800&q=80",
+    ],
     stock: 7,
     featured: true,
     active: true,
@@ -113,7 +144,11 @@ export const mockProducts: Product[] = [
     price: 44.99,
     category_id: "cat-4",
     category_slug: "specimens",
-    images: ["/placeholder-specimen-1.jpg"],
+    images: [
+      "https://images.unsplash.com/photo-1545072361-6513a01ac9c9?w=800&q=80",
+      "https://images.unsplash.com/photo-1767131543360-f80666ccb092?w=800&q=80",
+      "https://images.unsplash.com/photo-1764022587481-328bed85cfd4?w=800&q=80",
+    ],
     stock: 4,
     featured: false,
     active: true,
@@ -129,7 +164,11 @@ export const mockProducts: Product[] = [
     price: 119.99,
     category_id: "cat-4",
     category_slug: "specimens",
-    images: ["/placeholder-specimen-2.jpg"],
+    images: [
+      "https://images.unsplash.com/photo-1760651691806-8da6ae19c69a?w=800&q=80",
+      "https://images.unsplash.com/photo-1586625977555-4cf72a163fa6?w=800&q=80",
+      "https://images.unsplash.com/photo-1555158337-be9bbac2ac9e?w=800&q=80",
+    ],
     stock: 2,
     featured: true,
     active: true,

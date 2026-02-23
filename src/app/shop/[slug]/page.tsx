@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Package, Shield, Truck, RotateCcw } from "lucide-react";
+import { Shield, Truck, RotateCcw } from "lucide-react";
 import { getProduct, getRelatedProducts } from "@/lib/data";
 import { formatCurrency } from "@/lib/utils";
 import { ProductCard } from "@/components/shop/ProductCard";
+import { ProductGallery } from "@/components/shop/ProductGallery";
 import { AddToCartButton } from "./AddToCartButton";
 
 interface PageProps {
@@ -41,35 +42,12 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
         {/* Main content */}
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* Left: Image */}
-          <div className="space-y-4">
-            <div className="relative aspect-square overflow-hidden rounded-md border border-stone/50 bg-charcoal shadow-lg shadow-black/40">
-              <div className="absolute inset-0 bg-gradient-to-br from-stone/40 via-earth to-stone/30" />
-
-              {/* Sale badge */}
-              {product.compare_at_price && (
-                <div className="absolute left-4 top-4 rounded-sm bg-rust px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-white">
-                  Sale
-                </div>
-              )}
-            </div>
-
-            {/* Thumbnail placeholders */}
-            <div className="grid grid-cols-4 gap-3">
-              {[0, 1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className={`aspect-square overflow-hidden rounded-md border bg-charcoal ${
-                    i === 0
-                      ? "border-gold/50"
-                      : "border-stone/50 opacity-50"
-                  }`}
-                >
-                  <div className="h-full w-full bg-gradient-to-br from-stone/40 via-earth/30 to-stone/20" />
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Left: Image Gallery */}
+          <ProductGallery
+            images={product.images}
+            productName={product.name}
+            hasComparePrice={!!product.compare_at_price}
+          />
 
           {/* Right: Product details */}
           <div className="flex flex-col">
