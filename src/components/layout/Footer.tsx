@@ -17,10 +17,10 @@ export function Footer() {
   ];
 
   const companyLinks = [
-    { href: "#", label: "About Us" },
-    { href: "#", label: "Contact" },
-    { href: "#", label: "Shipping & Returns" },
-    { href: "#", label: "FAQ" },
+    { href: "/about", label: "About Us" },
+    { href: "/contact", label: "Contact" },
+    { href: "/shipping", label: "Shipping & Returns" },
+    { href: "/faq", label: "FAQ" },
   ];
 
   return (
