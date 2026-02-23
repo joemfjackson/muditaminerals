@@ -1,26 +1,195 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0A0A0A;
+  --foreground: #D4CFC7;
+  --color-black: #0A0A0A;
+  --color-charcoal: #1A1A1A;
+  --color-stone: #3A3A3A;
+  --color-amethyst: #7B2FBE;
+  --color-amethyst-dark: #5A1F8E;
+  --color-crystal: #8B7355;
+  --color-gold: #C5A55A;
+  --color-gold-light: #D4BA78;
+  --color-bone: #D4CFC7;
+  --color-muted: #706B63;
+  --color-rust: #8B4513;
+  --color-earth: #2D2A26;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-black: var(--color-black);
+  --color-charcoal: var(--color-charcoal);
+  --color-stone: var(--color-stone);
+  --color-amethyst: var(--color-amethyst);
+  --color-amethyst-dark: var(--color-amethyst-dark);
+  --color-crystal: var(--color-crystal);
+  --color-gold: var(--color-gold);
+  --color-gold-light: var(--color-gold-light);
+  --color-bone: var(--color-bone);
+  --color-muted: var(--color-muted);
+  --color-rust: var(--color-rust);
+  --color-earth: var(--color-earth);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-oswald);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-stone/50;
+  }
+  html, body {
+    overflow-x: hidden;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), system-ui, sans-serif;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-charcoal);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-stone);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-muted);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-stone) var(--color-charcoal);
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-black);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Noise texture overlay */
+.noise-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   SLIDE ANIMATIONS
+   ============================================ */
+
+@keyframes slide-in-from-top {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes slide-in-from-bottom {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes slide-in-from-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.animate-slide-in-from-top { animation: slide-in-from-top 0.15s ease-out; }
+.animate-slide-in-from-bottom { animation: slide-in-from-bottom 0.15s ease-out; }
+.animate-slide-in-from-right { animation: slide-in-from-right 0.15s ease-out; }
+
+/* ============================================
+   HERO FADE-IN ANIMATIONS (faster, no blur)
+   ============================================ */
+
+@keyframes fade-in-hero {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in-badge {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in-heading {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in-subheading {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in-buttons {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in-trust {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in-hero { opacity: 0; animation: fade-in-hero 0.6s ease-out 0.1s forwards; }
+.animate-fade-in-badge { opacity: 0; animation: fade-in-badge 0.5s ease-out 0.2s forwards; }
+.animate-fade-in-heading { opacity: 0; animation: fade-in-heading 0.6s ease-out 0.3s forwards; }
+.animate-fade-in-subheading { opacity: 0; animation: fade-in-subheading 0.5s ease-out 0.4s forwards; }
+.animate-fade-in-buttons { opacity: 0; animation: fade-in-buttons 0.5s ease-out 0.5s forwards; }
+.animate-fade-in-trust { opacity: 0; animation: fade-in-trust 0.5s ease-out 0.6s forwards; }
+
+/* ============================================
+   SCROLL / MARQUEE
+   ============================================ */
+
+@keyframes slide-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-slide-left { animation: slide-left 25s linear infinite; }
+
+/* ============================================
+   FADE-IN-UP (scroll triggered)
+   ============================================ */
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up { animation: fade-in-up 0.5s ease-out forwards; }
+
+/* ============================================
+   MOBILE MENU
+   ============================================ */
+
+@keyframes mobile-menu-item {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-mobile-menu-item { animation: mobile-menu-item 0.3s ease-out forwards; }
+
+/* ============================================
+   DELAY UTILITIES
+   ============================================ */
+
+.delay-200 { animation-delay: 200ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-600 { animation-delay: 600ms; }
+
+/* ============================================
+   SCROLLBAR HIDE
+   ============================================ */
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
