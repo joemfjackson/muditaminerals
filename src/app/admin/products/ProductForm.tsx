@@ -5,6 +5,7 @@ import type { Product, Category } from "@/lib/types";
 import { createProductAction, updateProductAction, type ActionState } from "@/lib/admin-actions";
 import Link from "next/link";
 import { X, Plus } from "lucide-react";
+import { ImageUpload } from "./ImageUpload";
 
 interface Props {
   product?: Product;
@@ -131,19 +132,7 @@ export function ProductForm({ product, categories }: Props) {
       </div>
 
       {/* Images */}
-      <div>
-        <label htmlFor="images" className={labelClass}>
-          Image URLs (one per line)
-        </label>
-        <textarea
-          id="images"
-          name="images"
-          rows={3}
-          defaultValue={product?.images?.join("\n")}
-          className={inputClass}
-          placeholder={"https://example.com/image1.jpg\nhttps://example.com/image2.jpg"}
-        />
-      </div>
+      <ImageUpload initialImages={product?.images} />
 
       {/* Stock */}
       <div className="w-32">
