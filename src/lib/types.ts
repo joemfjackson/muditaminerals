@@ -11,13 +11,7 @@ export interface Product {
   stock: number;
   featured: boolean;
   active: boolean;
-  properties?: {
-    weight?: string;
-    origin?: string;
-    chakra?: string;
-    hardness?: string;
-    dimensions?: string;
-  };
+  properties?: Record<string, string>;
   created_at: string;
   updated_at: string;
 }
@@ -52,4 +46,34 @@ export interface OrderItem {
   product_id: string;
   quantity: number;
   price: number;
+}
+
+export type OrderStatus =
+  | "pending"
+  | "processing"
+  | "shipped"
+  | "delivered"
+  | "cancelled";
+
+export interface OrderWithItems extends Order {
+  items: (OrderItem & {
+    products?: {
+      name: string;
+      images: string[];
+      slug: string;
+    };
+  })[];
+}
+
+export interface ProductFormData {
+  name: string;
+  description: string;
+  price: number;
+  compare_at_price?: number;
+  category_id?: string;
+  images: string[];
+  stock: number;
+  featured: boolean;
+  active: boolean;
+  properties?: Record<string, string>;
 }

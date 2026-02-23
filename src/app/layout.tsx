@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Oswald } from "next/font/google";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { CartDrawer } from "@/components/cart/CartDrawer";
 import "./globals.css";
 
 const inter = Inter({
@@ -40,10 +37,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${oswald.variable} antialiased bg-background text-foreground`}
       >
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <CartDrawer />
+        {children}
       </body>
     </html>
   );
