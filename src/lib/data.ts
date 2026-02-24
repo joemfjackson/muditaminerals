@@ -50,7 +50,11 @@ export async function getProducts(options?: {
 
   const { data, error } = await query;
   if (error) throw error;
-  return data as Product[];
+
+  return (data ?? []).map((p: Record<string, unknown>) => ({
+    ...p,
+    category_slug: (p.categories as { slug?: string } | null)?.slug ?? undefined,
+  })) as Product[];
 }
 
 export async function getProduct(slug: string): Promise<Product | null> {

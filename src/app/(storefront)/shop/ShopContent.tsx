@@ -23,6 +23,7 @@ export function ShopContent() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState(searchParams.get("q") || "");
 
   const activeCategory = searchParams.get("category") || "";
@@ -50,12 +51,14 @@ export function ShopContent() {
 
   useEffect(() => {
     setLoading(true);
+    setError(null);
     getProducts({
       category: activeCategory || undefined,
       search: activeSearch || undefined,
       sort: activeSort,
     })
       .then(setProducts)
+      .catch((err) => setError(err?.message || "Failed to load products"))
       .finally(() => setLoading(false));
   }, [activeCategory, activeSearch, activeSort]);
 
@@ -175,7 +178,12 @@ export function ShopContent() {
         )}
 
         {/* Product grid */}
-        {loading ? (
+        {error ? (
+          <div className="flex flex-col items-center justify-center py-20 text-center">
+            <p className="mb-1 text-lg font-heading font-bold uppercase text-bone">Something went wrong</p>
+            <p className="text-sm text-muted">{error}</p>
+          </div>
+        ) : loading ? (
           <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: 8 }).map((_, i) => (
               <div
