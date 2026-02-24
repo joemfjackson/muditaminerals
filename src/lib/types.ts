@@ -12,6 +12,7 @@ export interface Product {
   featured: boolean;
   active: boolean;
   properties?: Record<string, string>;
+  focal_point?: { x: number; y: number };
   created_at: string;
   updated_at: string;
 }

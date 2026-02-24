@@ -132,7 +132,7 @@ export function ProductForm({ product, categories }: Props) {
       </div>
 
       {/* Images */}
-      <ImageUpload initialImages={product?.images} />
+      <ImageUpload initialImages={product?.images} initialFocalPoint={product?.focal_point} />
 
       {/* Stock */}
       <div className="w-32">

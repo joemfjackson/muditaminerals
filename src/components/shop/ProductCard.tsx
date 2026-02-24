@@ -33,6 +33,7 @@ export function ProductCard({ product }: { product: Product }) {
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
+            style={{ objectPosition: `${product.focal_point?.x ?? 50}% ${product.focal_point?.y ?? 50}%` }}
           />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-stone/40 via-earth to-stone/30" />

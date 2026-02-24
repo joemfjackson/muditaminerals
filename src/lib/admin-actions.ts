@@ -101,6 +101,9 @@ export async function createProductAction(
     .map((u) => u.trim())
     .filter(Boolean);
 
+  const focalPointRaw = formData.get("focal_point") as string;
+  const focal_point = focalPointRaw ? JSON.parse(focalPointRaw) : { x: 50, y: 50 };
+
   const { error } = await db().from("products").insert({
     name,
     slug,
@@ -113,6 +116,7 @@ export async function createProductAction(
     featured,
     active,
     properties: Object.keys(properties).length > 0 ? properties : null,
+    focal_point,
   });
 
   if (error) {
@@ -157,6 +161,9 @@ export async function updateProductAction(
     .map((u) => u.trim())
     .filter(Boolean);
 
+  const focalPointRaw = formData.get("focal_point") as string;
+  const focal_point = focalPointRaw ? JSON.parse(focalPointRaw) : { x: 50, y: 50 };
+
   const { error } = await db()
     .from("products")
     .update({
@@ -171,6 +178,7 @@ export async function updateProductAction(
       featured,
       active,
       properties: Object.keys(properties).length > 0 ? properties : null,
+      focal_point,
       updated_at: new Date().toISOString(),
     })
     .eq("id", id);

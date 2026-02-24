@@ -27,6 +27,7 @@ create table if not exists products (
   featured boolean default false,
   active boolean default true,
   properties jsonb default '{}',
+  focal_point jsonb default '{"x":50,"y":50}',
   created_at timestamptz default now(),
   updated_at timestamptz default now()
 );
