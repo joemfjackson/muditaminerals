@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { X, Trash2, Minus, Plus, ShoppingBag } from "lucide-react";
+import { X, Trash2, Minus, Plus, ShoppingBag, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/hooks/use-cart";
 import { formatCurrency } from "@/lib/utils";
@@ -19,6 +19,39 @@ export function CartDrawer() {
   } = useCart();
 
   const subtotal = totalPrice();
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+
+  async function handleCheckout() {
+    setCheckoutLoading(true);
+    setCheckoutError(null);
+
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map((i) => ({
+            productId: i.product.id,
+            quantity: i.quantity,
+          })),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setCheckoutError(data.error || "Checkout failed");
+        return;
+      }
+
+      window.location.href = data.url;
+    } catch {
+      setCheckoutError("Something went wrong. Please try again.");
+    } finally {
+      setCheckoutLoading(false);
+    }
+  }
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -190,13 +223,24 @@ export function CartDrawer() {
                 </span>
               </div>
 
-              <Link
-                href="/checkout"
-                onClick={closeCart}
-                className="block w-full rounded-sm bg-gold py-3 text-center font-heading font-bold uppercase tracking-wider text-black transition-colors duration-200 hover:bg-gold-light"
+              {checkoutError && (
+                <p className="mb-3 text-sm text-rust">{checkoutError}</p>
+              )}
+
+              <button
+                onClick={handleCheckout}
+                disabled={checkoutLoading}
+                className="flex w-full items-center justify-center gap-2 rounded-sm bg-gold py-3 font-heading font-bold uppercase tracking-wider text-black transition-colors duration-200 hover:bg-gold-light disabled:opacity-50"
               >
-                Checkout
-              </Link>
+                {checkoutLoading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Redirecting...
+                  </>
+                ) : (
+                  "Checkout"
+                )}
+              </button>
 
               <button
                 onClick={closeCart}
