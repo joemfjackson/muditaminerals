@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Search, SlidersHorizontal, X } from "lucide-react";
-import { getProducts, getCategories } from "@/lib/data";
 import { ProductCard } from "@/components/shop/ProductCard";
 import type { Product, Category } from "@/lib/types";
 
@@ -46,18 +45,37 @@ export function ShopContent() {
   );
 
   useEffect(() => {
-    getCategories().then(setCategories);
+    fetch("/api/categories")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) setCategories(data);
+      })
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
     setLoading(true);
     setError(null);
-    getProducts({
-      category: activeCategory || undefined,
-      search: activeSearch || undefined,
-      sort: activeSort,
-    })
-      .then(setProducts)
+
+    const params = new URLSearchParams();
+    if (activeCategory) params.set("category", activeCategory);
+    if (activeSearch) params.set("search", activeSearch);
+    if (activeSort) params.set("sort", activeSort);
+
+    fetch(`/api/products?${params.toString()}`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Server error (${res.status})`);
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setProducts(data);
+        } else if (data?.error) {
+          throw new Error(data.error);
+        } else {
+          setProducts([]);
+        }
+      })
       .catch((err) => setError(err?.message || "Failed to load products"))
       .finally(() => setLoading(false));
   }, [activeCategory, activeSearch, activeSort]);

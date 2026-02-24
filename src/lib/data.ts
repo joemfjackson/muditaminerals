@@ -1,9 +1,9 @@
-import { getSupabase, isSupabaseConfigured } from "./supabase";
+import { createServerClient, isSupabaseConfigured } from "./supabase";
 import { mockProducts, mockCategories } from "./mock-data";
 import type { Product, Category } from "./types";
 
 function db() {
-  return getSupabase();
+  return createServerClient();
 }
 
 export async function getProducts(options?: {
