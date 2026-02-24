@@ -162,7 +162,7 @@ export function ImageUpload({ initialImages = [], initialFocalPoint }: Props) {
             </label>
           </div>
           <p className="text-xs text-[var(--color-muted)] mb-3">
-            Click on the image to set the focus point for the shop card crop. The crosshair shows what will be centered in the 4:3 card view.
+            Click on the image to set the focus point for the shop card crop. The crosshair shows what will be centered in the square card view.
           </p>
 
           <div className="flex gap-4 items-start">
@@ -197,8 +197,8 @@ export function ImageUpload({ initialImages = [], initialFocalPoint }: Props) {
 
             {/* 4:3 Preview */}
             <div className="flex-1 max-w-xs">
-              <p className="text-[10px] uppercase tracking-wider text-[var(--color-muted)] mb-1.5">Card preview (4:3)</p>
-              <div className="relative aspect-[4/3] overflow-hidden rounded border border-[var(--color-stone)] bg-[var(--color-charcoal)]">
+              <p className="text-[10px] uppercase tracking-wider text-[var(--color-muted)] mb-1.5">Card preview (square)</p>
+              <div className="relative aspect-square overflow-hidden rounded border border-[var(--color-stone)] bg-[var(--color-charcoal)]">
                 <img
                   src={firstImage}
                   alt="Card preview"

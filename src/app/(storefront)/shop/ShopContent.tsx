@@ -208,7 +208,7 @@ export function ShopContent() {
                 key={i}
                 className="animate-pulse overflow-hidden rounded-md border border-stone/50 bg-charcoal"
               >
-                <div className="aspect-[4/3] bg-stone/30" />
+                <div className="aspect-square bg-stone/30" />
                 <div className="space-y-3 p-4">
                   <div className="h-2 w-16 bg-stone/40" />
                   <div className="h-4 w-3/4 bg-stone/40" />

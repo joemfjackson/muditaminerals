@@ -22,7 +22,7 @@ export default function ShopPage() {
                   key={i}
                   className="animate-pulse overflow-hidden rounded-lg border border-stone bg-charcoal"
                 >
-                  <div className="aspect-[4/3] bg-stone/30" />
+                  <div className="aspect-square bg-stone/30" />
                   <div className="space-y-3 p-4">
                     <div className="h-2 w-16 rounded bg-stone/40" />
                     <div className="h-4 w-3/4 rounded bg-stone/40" />

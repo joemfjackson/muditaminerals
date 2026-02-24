@@ -25,7 +25,7 @@ export function ProductCard({ product }: { product: Product }) {
       className="group relative flex flex-col overflow-hidden rounded-md border border-stone/50 bg-charcoal transition-all duration-300 hover:border-gold/50 hover:-translate-y-1 shadow-lg shadow-black/40 hover:shadow-xl hover:shadow-[0_0_25px_rgba(197,165,90,0.1)]"
     >
       {/* Image area */}
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="relative aspect-square overflow-hidden">
         {hasImage ? (
           <Image
             src={product.images[0]}
