@@ -28,6 +28,10 @@ export const supabase = new Proxy({} as SupabaseClient, {
 
 export { isConfigured as isSupabaseConfigured };
 
+export function isServerConfigured(): boolean {
+  return Boolean(supabaseUrl && supabaseUrl !== "your_supabase_url" && process.env.SUPABASE_SERVICE_ROLE_KEY);
+}
+
 export function createServerClient() {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
   return createClient(supabaseUrl, serviceRoleKey);

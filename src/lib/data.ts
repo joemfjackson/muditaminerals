@@ -1,4 +1,4 @@
-import { createServerClient, isSupabaseConfigured } from "./supabase";
+import { createServerClient, isServerConfigured } from "./supabase";
 import { mockProducts, mockCategories } from "./mock-data";
 import type { Product, Category } from "./types";
 
@@ -12,7 +12,7 @@ export async function getProducts(options?: {
   search?: string;
   sort?: "price-asc" | "price-desc" | "newest" | "name";
 }): Promise<Product[]> {
-  if (!isSupabaseConfigured()) {
+  if (!isServerConfigured()) {
     let products = [...mockProducts].filter((p) => p.active);
     if (options?.category) products = products.filter((p) => p.category_slug === options.category);
     if (options?.featured) products = products.filter((p) => p.featured);
@@ -58,7 +58,7 @@ export async function getProducts(options?: {
 }
 
 export async function getProduct(slug: string): Promise<Product | null> {
-  if (!isSupabaseConfigured()) {
+  if (!isServerConfigured()) {
     return mockProducts.find((p) => p.slug === slug) || null;
   }
 
@@ -73,7 +73,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
 }
 
 export async function getCategories(): Promise<Category[]> {
-  if (!isSupabaseConfigured()) return mockCategories;
+  if (!isServerConfigured()) return mockCategories;
 
   const { data, error } = await db()
     .from("categories")
@@ -85,7 +85,7 @@ export async function getCategories(): Promise<Category[]> {
 }
 
 export async function getRelatedProducts(productId: string, categoryId: string, limit = 4): Promise<Product[]> {
-  if (!isSupabaseConfigured()) {
+  if (!isServerConfigured()) {
     return mockProducts
       .filter((p) => p.category_id === categoryId && p.id !== productId && p.active)
       .slice(0, limit);
